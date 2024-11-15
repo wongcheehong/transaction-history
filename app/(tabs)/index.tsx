@@ -16,7 +16,7 @@ export default function HomeScreen() {
     const { isAmountVisible } = useHideAmountStore();
 
     // Calculate total balance and recent activity
-    const recentTransactions = transactions.slice(0, 3);
+    const recentTransactions = transactions.slice(0, 6);
     const totalBalance = transactions.reduce((acc, curr) => {
         return acc + (curr.type === 'credit' ? curr.amount : -curr.amount);
     }, 0);
@@ -85,25 +85,6 @@ export default function HomeScreen() {
                 ))}
             </View>
 
-            {/* Quick Actions */}
-            <View style={styles.actionsSection}>
-                <Text style={styles.sectionTitle}>Quick Actions</Text>
-                <View style={styles.actionsContainer}>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <View style={styles.actionIconContainer}>
-                            <DollarSign size={24} color={styles.actionIcon.color} />
-                        </View>
-                        <Text style={styles.actionText}>Send Money</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.actionButton}>
-                        <View style={styles.actionIconContainer}>
-                            <PieChart size={24} color={styles.actionIcon.color} />
-                        </View>
-                        <Text style={styles.actionText}>Analytics</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
         </ScrollView>
     );
 }

@@ -7,11 +7,13 @@ import { TransactionCard } from '@/components/TransactionCard';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
 import { formatAmount } from '@/lib/formatter';
+import { useHideAmountStore } from '@/hooks/stores/useHideAmountStore';
 
 export default function HomeScreen() {
     const router = useRouter();
     const { transactions, isLoading } = useFetchTransactions();
     const styles = useStyles(createStyles);
+    const { isAmountVisible } = useHideAmountStore();
 
     // Calculate total balance and recent activity
     const recentTransactions = transactions.slice(0, 3);
@@ -37,7 +39,7 @@ export default function HomeScreen() {
             <View style={styles.balanceCard}>
                 <Text style={styles.balanceLabel}>Total Balance</Text>
                 <Text style={styles.balanceAmount}>
-                    {formatAmount(totalBalance)}
+                    {formatAmount(totalBalance, !isAmountVisible)}
                 </Text>
             </View>
 
@@ -48,7 +50,7 @@ export default function HomeScreen() {
                         <ArrowUpRight size={20} color={styles.incomeIcon.color} />
                         <Text style={styles.statLabel}>Income</Text>
                     </View>
-                    <Text style={styles.statAmount}>{formatAmount(monthlyIncome)}</Text>
+                    <Text style={styles.statAmount}>{formatAmount(monthlyIncome, !isAmountVisible)}</Text>
                 </View>
 
                 <View style={styles.statCard}>
@@ -56,7 +58,7 @@ export default function HomeScreen() {
                         <ArrowDownRight size={20} color={styles.expenseIcon.color} />
                         <Text style={styles.statLabel}>Expenses</Text>
                     </View>
-                    <Text style={styles.statAmount}>{formatAmount(monthlyExpenses)}</Text>
+                    <Text style={styles.statAmount}>{formatAmount(monthlyExpenses, !isAmountVisible)}</Text>
                 </View>
             </View>
 
@@ -77,7 +79,7 @@ export default function HomeScreen() {
                     <TransactionCard
                         key={transaction.id}
                         transaction={transaction}
-                        isAmountVisible={true}
+                        isAmountVisible={isAmountVisible}
                         onPress={() => router.push(`/transactions/${transaction.id}`)}
                     />
                 ))}

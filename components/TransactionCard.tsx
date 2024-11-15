@@ -40,9 +40,7 @@ export function TransactionCard({
               transaction.type === 'debit' ? styles.debitAmount : styles.creditAmount
             ]}
           >
-            {isAmountVisible
-              ? formatAmount(transaction.amount)
-              : '•••••'}
+            {formatAmount(transaction.amount, !isAmountVisible)}
           </Text>
           <Text style={styles.category}>
             {transaction.category}

@@ -7,5 +7,5 @@ interface HideAmountState {
 
 export const useHideAmountStore = create<HideAmountState>((set) => ({
     isAmountVisible: false,
-    toggleVisibility: () => set((state) => ({ isAmountVisible: !state.isAmountVisible }))
+    toggleVisibility: () => set((state) => ({ ...state, isAmountVisible: !state.isAmountVisible })),
 }))

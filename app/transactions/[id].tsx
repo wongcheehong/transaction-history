@@ -7,10 +7,11 @@ import { DetailRow } from '@/components/DetailRow';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
 import { formatAmount, formatDate } from '@/lib/formatter';
+import { useHideAmountStore } from '@/hooks/stores/useHideAmountStore';
 
 export default function TransactionDetailScreen() {
   const { id } = useLocalSearchParams();
-  const router = useRouter();
+  const { isAmountVisible } = useHideAmountStore();
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,7 +64,7 @@ export default function TransactionDetailScreen() {
             {transaction.description}
           </Text>
           <Text style={[styles.amount, amountStyle]}>
-            {formatAmount(transaction.amount)}
+            {formatAmount(transaction.amount, !isAmountVisible)}
           </Text>
         </View>
 

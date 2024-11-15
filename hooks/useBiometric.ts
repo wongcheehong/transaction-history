@@ -49,7 +49,6 @@ export const useBiometric = () => {
   }, []);
 
   const authenticate = useCallback(async () => {
-    console.log('authenticate');
     try {
       const result = await LocalAuthentication.authenticateAsync({
         promptMessage: 'Authenticate to access your account',

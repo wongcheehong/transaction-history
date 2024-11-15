@@ -36,7 +36,6 @@ export default function HomeScreen() {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Balance Card */}
             <View style={styles.balanceCard}>
                 <Text style={styles.balanceLabel}>Total Balance</Text>
                 <Text style={styles.balanceAmount}>
@@ -44,7 +43,6 @@ export default function HomeScreen() {
                 </Text>
             </View>
 
-            {/* Quick Stats */}
             <View style={styles.statsContainer}>
                 <View style={styles.statCard}>
                     <View style={styles.statHeader}>
@@ -63,7 +61,6 @@ export default function HomeScreen() {
                 </View>
             </View>
 
-            {/* Recent Transactions */}
             <View style={styles.transactionsSection}>
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>Recent Transactions</Text>

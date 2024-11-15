@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Alert, Text } from 'react-native';
-import { LogOut, Shield, Bell, Lock } from 'lucide-react-native';
+import { LogOut } from 'lucide-react-native';
 import { useStyles } from '@/hooks/useStyles';
 import { authService } from '@/services/auth-service';
 import { Theme, useAppTheme } from '@/hooks/useAppTheme';
 import { StyleSheet } from 'react-native';
-import { SettingItem } from '@/components/Profile/SettingItem';
 import { useAuthContext } from '@/context/AuthContext';
 
 export default function ProfileScreen() {
@@ -70,36 +69,10 @@ export default function ProfileScreen() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.avatarContainer}>
-                    <Text style={styles.avatarText}>JD</Text>
+                    <Text style={styles.avatarText}>WCH</Text>
                 </View>
-                <Text style={styles.userName}>John Doe</Text>
-                <Text style={styles.userEmail}>john.doe@example.com</Text>
-            </View>
-
-            <View style={styles.settingsContainer}>
-                <Text style={styles.sectionTitle}>Settings</Text>
-
-                <SettingItem
-                    icon={<Shield size={24} color={theme.colors.primary.main} />}
-                    title="Security Settings"
-                    onPress={handleSecuritySettings}
-                />
-
-                <SettingItem
-                    icon={<Lock size={24} color={theme.colors.primary.main} />}
-                    title="Biometric Authentication"
-                    hasToggle
-                    isToggled={isBiometricEnabled}
-                    onToggle={handleBiometricToggle}
-                />
-
-                <SettingItem
-                    icon={<Bell size={24} color={theme.colors.primary.main} />}
-                    title="Push Notifications"
-                    hasToggle
-                    isToggled={isPushNotificationsEnabled}
-                    onToggle={setIsPushNotificationsEnabled}
-                />
+                <Text style={styles.userName}>Wong Chee hong</Text>
+                <Text style={styles.userEmail}>wongcheehong2001@gmail.com</Text>
             </View>
 
             <TouchableOpacity
@@ -147,16 +120,6 @@ const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
         ...theme.typography.body2,
         color: theme.colors.neutral[500],
         marginTop: theme.spacing.xs
-    },
-    sectionTitle: {
-        ...theme.typography.caption,
-        color: theme.colors.neutral[500],
-        textTransform: 'uppercase',
-        paddingHorizontal: theme.spacing.md,
-        paddingBottom: theme.spacing.sm
-    },
-    settingsContainer: {
-        marginTop: theme.spacing.xl
     },
     logoutButton: {
         marginTop: theme.spacing.xl,

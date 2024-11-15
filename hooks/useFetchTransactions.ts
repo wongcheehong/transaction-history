@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Transaction } from '@/types/types';
+import { Transaction } from '@/types/transaction';
 import { transactionService } from '@/services/transaction-service';
 
 export function useFetchTransactions() {

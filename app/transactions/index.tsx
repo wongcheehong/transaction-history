@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, RefreshControl, TouchableOpacity, StyleSheet } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
-import { Transaction } from '@/types/types';
+import { Transaction } from '@/types/transaction';
 import { useFetchTransactions } from '@/hooks/useFetchTransactions';
 import { TransactionCard } from '@/components/TransactionCard';
 import { useStyles } from '@/hooks/useStyles';

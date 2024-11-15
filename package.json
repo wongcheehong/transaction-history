@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
     "@shopify/flash-list": "1.7.1",
@@ -46,7 +47,7 @@
     "react-native-webview": "13.12.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.15",
-    "@react-native-async-storage/async-storage": "1.23.1"
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

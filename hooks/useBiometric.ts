@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 
 export type BiometricType = 'fingerprint' | 'facial' | 'iris';
 
-export const useAuth = () => {
+export const useBiometric = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [biometricTypes, setBiometricTypes] = useState<BiometricType[]>([]);
   const [isEnrolled, setIsEnrolled] = useState(false);
@@ -49,6 +49,7 @@ export const useAuth = () => {
   }, []);
 
   const authenticate = useCallback(async () => {
+    console.log('authenticate');
     try {
       const result = await LocalAuthentication.authenticateAsync({
         promptMessage: 'Authenticate to access your account',

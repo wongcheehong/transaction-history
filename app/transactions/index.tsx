@@ -8,12 +8,13 @@ import { authService } from '@/services/auth-service';
 import { TransactionCard } from '@/components/TransactionCard';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
+import { useHideAmountStore } from '@/hooks/stores/useHideAmountStore';
 
 export default function TransactionsScreen() {
   const router = useRouter();
-  const [isAmountVisible, setIsAmountVisible] = useState(false);
   const { transactions, isLoading, error, refetch } = useFetchTransactions();
   const styles = useStyles(createStyles);
+  const { isAmountVisible } = useHideAmountStore();
 
   const handleRefresh = useCallback(() => {
     refetch();
@@ -23,12 +24,6 @@ export default function TransactionsScreen() {
     router.push(`/transactions/${transaction.id}`);
   }, [router]);
 
-  const handleToggleAmounts = async () => {
-    const authResult = await authService.authenticate();
-    if (authResult.isAuthenticated) {
-      setIsAmountVisible(!isAmountVisible);
-    }
-  };
 
   if (error) {
     return (
@@ -42,17 +37,6 @@ export default function TransactionsScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={handleToggleAmounts}
-          style={styles.toggleButton}
-        >
-          <Text style={styles.toggleButtonText}>
-            {isAmountVisible ? 'Hide Amounts' : 'Show Amounts'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
       <FlashList
         data={transactions}
         renderItem={({ item }) => (

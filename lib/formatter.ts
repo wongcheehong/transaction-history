@@ -1,4 +1,8 @@
-export const formatAmount =(amount: number): string => {
+export const formatAmount = (amount: number, showMask = true): string => {
+    if (showMask) {
+        return '****';
+    }
+
     const formattedAmount = new Intl.NumberFormat('ms-MY', {
       style: 'currency',
       currency: 'MYR',

@@ -64,13 +64,15 @@ const createStyles = (theme: Theme) => StyleSheet.create({
   contentContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   leftContent: {
     flex: 1
   },
   rightContent: {
-    alignItems: 'flex-end'
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: "flex-end",
   },
   description: {
     color: theme.colors.gray[800],
@@ -85,7 +87,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
   amount: {
     ...theme.typography.body1,
     fontWeight: '600',
-    width: 80
+    textAlign: 'right'
   },
   debitAmount: {
     color: theme.colors.error

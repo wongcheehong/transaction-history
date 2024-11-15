@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowRight, DollarSign, PieChart, ArrowUpRight, ArrowDownRight } from 'lucide-react-native';
@@ -15,19 +15,20 @@ export default function HomeScreen() {
     const styles = useStyles(createStyles);
     const { isAmountVisible } = useHideAmountStore();
 
-    // Calculate total balance and recent activity
     const recentTransactions = transactions.slice(0, 6);
-    const totalBalance = transactions.reduce((acc, curr) => {
-        return acc + (curr.type === 'credit' ? curr.amount : -curr.amount);
-    }, 0);
 
-    const monthlyIncome = transactions
+    const totalBalance = useMemo(() =>
+        transactions.reduce((acc, curr) =>
+            acc + (curr.type === 'credit' ? curr.amount : -curr.amount), 0),
+        [transactions]);
+
+    const monthlyIncome = useMemo(() => transactions
         .filter(t => t.type === 'credit')
-        .reduce((acc, curr) => acc + curr.amount, 0);
+        .reduce((acc, curr) => acc + curr.amount, 0), [transactions]);
 
-    const monthlyExpenses = transactions
+    const monthlyExpenses = useMemo(() => transactions
         .filter(t => t.type === 'debit')
-        .reduce((acc, curr) => acc + curr.amount, 0);
+        .reduce((acc, curr) => acc + curr.amount, 0), [transactions]);
 
     const handleViewAllTransactions = () => {
         router.push('/transactions');

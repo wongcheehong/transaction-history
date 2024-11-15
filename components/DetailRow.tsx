@@ -24,7 +24,6 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: theme.spacing.sm
     },
     label: {
         color: theme.colors.gray[500]

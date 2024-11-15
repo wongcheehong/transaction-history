@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Transaction } from '@/types/types';
-import { transactionService } from '@/services/transaction-service';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
+import { formatAmount, formatDate } from '@/lib/formatter';
 
 interface TransactionCardProps {
   transaction: Transaction;
@@ -29,7 +29,7 @@ export function TransactionCard({
             {transaction.description}
           </Text>
           <Text style={styles.date}>
-            {transactionService.formatDate(transaction.date)}
+            {formatDate(transaction.date)}
           </Text>
         </View>
 
@@ -41,7 +41,7 @@ export function TransactionCard({
             ]}
           >
             {isAmountVisible
-              ? transactionService.formatAmount(transaction.amount, transaction.type)
+              ? formatAmount(transaction.amount)
               : '•••••'}
           </Text>
           <Text style={styles.category}>

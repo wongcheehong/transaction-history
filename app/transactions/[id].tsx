@@ -6,6 +6,7 @@ import { transactionService } from '@/services/transaction-service';
 import { DetailRow } from '@/components/DetailRow';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
+import { formatAmount, formatDate } from '@/lib/formatter';
 
 export default function TransactionDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -62,12 +63,12 @@ export default function TransactionDetailScreen() {
             {transaction.description}
           </Text>
           <Text style={[styles.amount, amountStyle]}>
-            {transactionService.formatAmount(transaction.amount, transaction.type)}
+            {formatAmount(transaction.amount)}
           </Text>
         </View>
 
         <View style={styles.detailsSection}>
-          <DetailRow label="Date" value={transactionService.formatDate(transaction.date)} />
+          <DetailRow label="Date" value={formatDate(transaction.date)} />
           <DetailRow label="Type" value={transaction.type.toUpperCase()} />
           <DetailRow label="Category" value={transaction.category} />
           <DetailRow label="Merchant" value={transaction.merchantName} />
@@ -105,7 +106,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
     color: theme.colors.success,
   },
   detailsSection: {
-    gap: theme.spacing.md,
+    gap: theme.spacing.sm,
   },
   centerContainer: {
     flex: 1,

@@ -6,6 +6,7 @@ import { useFetchTransactions } from '@/hooks/useFetchTransactions';
 import { TransactionCard } from '@/components/TransactionCard';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
+import { formatAmount } from '@/lib/formatter';
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -36,7 +37,7 @@ export default function HomeScreen() {
             <View style={styles.balanceCard}>
                 <Text style={styles.balanceLabel}>Total Balance</Text>
                 <Text style={styles.balanceAmount}>
-                    ${totalBalance.toFixed(2)}
+                    {formatAmount(totalBalance)}
                 </Text>
             </View>
 
@@ -47,7 +48,7 @@ export default function HomeScreen() {
                         <ArrowUpRight size={20} color={styles.incomeIcon.color} />
                         <Text style={styles.statLabel}>Income</Text>
                     </View>
-                    <Text style={styles.statAmount}>${monthlyIncome.toFixed(2)}</Text>
+                    <Text style={styles.statAmount}>{formatAmount(monthlyIncome)}</Text>
                 </View>
 
                 <View style={styles.statCard}>
@@ -55,7 +56,7 @@ export default function HomeScreen() {
                         <ArrowDownRight size={20} color={styles.expenseIcon.color} />
                         <Text style={styles.statLabel}>Expenses</Text>
                     </View>
-                    <Text style={styles.statAmount}>${monthlyExpenses.toFixed(2)}</Text>
+                    <Text style={styles.statAmount}>{formatAmount(monthlyExpenses)}</Text>
                 </View>
             </View>
 
@@ -121,7 +122,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         marginBottom: theme.spacing.sm,
     },
     balanceAmount: {
-        color: theme.colors.background,
+        color: theme.colors.neutral[50],
         ...theme.typography.h1,
     },
     statsContainer: {
@@ -144,7 +145,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         color: theme.colors.gray[600],
     },
     statAmount: {
-        ...theme.typography.h3,
+        ...theme.typography.h4,
         marginTop: theme.spacing.sm,
     },
     incomeIcon: {

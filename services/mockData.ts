@@ -3,7 +3,7 @@ import { Transaction } from "@/types/types";
 export const mockTransactions: Transaction[] = [
   {
     id: '1',
-    amount: 125.50,
+    amount: -125.50,
     date: '2024-03-14T10:30:00Z',
     description: 'Coffee Shop Purchase',
     type: 'debit',

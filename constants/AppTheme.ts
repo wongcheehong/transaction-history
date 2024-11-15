@@ -32,6 +32,16 @@ export const AppColors = {
       800: '#2D2D2D',
       900: '#1A1A1A'
     },
+    neutral: {
+      50: '#F9F9F9',
+      100: '#EFEFEF',
+      200: '#E4E4E4',
+      300: '#D3D3D3',
+      400: '#B8B8B8',
+      500: '#999999',
+      600: '#666666',
+      700: '#444444',
+    },
     // Common
     background: '#FFFFFF',
     text: '#000000',
@@ -70,6 +80,11 @@ export const AppColors = {
     h3: {
       fontSize: 24,
       lineHeight: 32,
+      fontWeight: '600'
+    },
+    h4: {
+      fontSize: 20,
+      lineHeight: 24,
       fontWeight: '600'
     },
     body1: {

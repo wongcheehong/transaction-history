@@ -1,6 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '@/components/ui/Text';
+import { View, StyleSheet, Text } from 'react-native';
+import { useStyles } from '@/hooks/useStyles';
+import { Theme } from '@/hooks/useAppTheme';
 
 interface DetailRowProps {
     label: string;
@@ -8,10 +9,29 @@ interface DetailRowProps {
 }
 
 export function DetailRow({ label, value }: DetailRowProps) {
+    const styles = useStyles(createStyles);
+
     return (
-        <View className="flex-row justify-between items-center py-2">
-            <Text className="text-gray-500">{label}</Text>
-            <Text className="text-gray-800 font-medium">{value}</Text>
+        <View style={styles.container}>
+            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.value}>{value}</Text>
         </View>
     );
 }
+
+const createStyles = (theme: Theme) => StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: theme.spacing.sm
+    },
+    label: {
+        color: theme.colors.gray[500]
+    },
+    value: {
+        ...theme.typography.body1,
+        color: theme.colors.gray[800],
+        fontWeight: '500'
+    }
+});

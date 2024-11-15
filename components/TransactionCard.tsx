@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
-import { Transaction } from '@/types/types';
+import { Transaction } from '@/types/transaction';
 import { useStyles } from '@/hooks/useStyles';
 import { Theme } from '@/hooks/useAppTheme';
 import { formatAmount, formatDate } from '@/lib/formatter';

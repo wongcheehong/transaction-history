@@ -1,4 +1,4 @@
-import { Transaction } from '@/types/types';
+import { Transaction } from '@/types/transaction';
 import { mockTransactions } from './mockData';
 
 class TransactionService {

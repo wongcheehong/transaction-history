@@ -1,15 +1,19 @@
-// app/(app)/profile.tsx
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Alert, Text } from 'react-native';
 import { LogOut, Shield, Bell, Lock } from 'lucide-react-native';
 import { useStyles } from '@/hooks/useStyles';
 import { authService } from '@/services/auth-service';
+import { Theme, useAppTheme } from '@/hooks/useAppTheme';
+import { StyleSheet } from 'react-native';
+import { SettingItem } from '@/components/Profile/SettingItem';
+import { useAuthContext } from '@/context/AuthContext';
 
 export default function ProfileScreen() {
     const [isBiometricEnabled, setIsBiometricEnabled] = useState(true);
     const [isPushNotificationsEnabled, setIsPushNotificationsEnabled] = useState(true);
     const styles = useStyles(createProfileScreenStyles);
     const theme = useAppTheme();
+    const { logout } = useAuthContext();
 
     const handleBiometricToggle = async (value: boolean) => {
         if (value) {
@@ -46,9 +50,12 @@ export default function ProfileScreen() {
                 {
                     text: 'Logout',
                     style: 'destructive',
-                    onPress: () => {
-                        // Implement logout logic here
-                        console.log('User logged out');
+                    onPress: async () => {
+                        try {
+                            await logout();
+                        } catch (error) {
+                            console.log('Error', 'Failed to log out');
+                        }
                     },
                 },
             ]
@@ -56,13 +63,11 @@ export default function ProfileScreen() {
     };
 
     const handleSecuritySettings = () => {
-        // Navigate to security settings
         console.log('Navigate to security settings');
     };
 
     return (
         <View style={styles.container}>
-            {/* Profile Header */}
             <View style={styles.header}>
                 <View style={styles.avatarContainer}>
                     <Text style={styles.avatarText}>JD</Text>
@@ -71,7 +76,6 @@ export default function ProfileScreen() {
                 <Text style={styles.userEmail}>john.doe@example.com</Text>
             </View>
 
-            {/* Settings Section */}
             <View style={styles.settingsContainer}>
                 <Text style={styles.sectionTitle}>Settings</Text>
 
@@ -98,7 +102,6 @@ export default function ProfileScreen() {
                 />
             </View>
 
-            {/* Logout Button */}
             <TouchableOpacity
                 onPress={handleLogout}
                 style={styles.logoutButton}
@@ -110,12 +113,7 @@ export default function ProfileScreen() {
     );
 }
 
-// app/styles/profile-screen.ts
-import { Theme, useAppTheme } from '@/hooks/useAppTheme';
-import { StyleSheet } from 'react-native';
-import { SettingItem } from '@/components/Profile/SettingItem';
-
-export const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
+const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: theme.colors.neutral[50]
@@ -125,7 +123,7 @@ export const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
         padding: theme.spacing.xl,
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: theme.colors.neutral[200]
+        borderBottomColor: theme.colors.neutral[200],
     },
     avatarContainer: {
         width: 80,

@@ -1,31 +1,44 @@
-import { AuthenticationState } from '@/types/types';
 import * as LocalAuthentication from 'expo-local-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class AuthenticationService {
-  async checkBiometricSupport(): Promise<boolean> {
+const AUTH_KEY = '@auth_status';
+
+export const authService = {
+  async checkBiometricSupport() {
     const compatible = await LocalAuthentication.hasHardwareAsync();
     const enrolled = await LocalAuthentication.isEnrolledAsync();
     return compatible && enrolled;
-  }
+  },
 
-  async authenticate(): Promise<AuthenticationState> {
+  async authenticate() {
     try {
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Authenticate to view sensitive data',
+        promptMessage: 'Authenticate to continue',
         fallbackLabel: 'Use passcode',
       });
 
+      if (result.success) {
+        await AsyncStorage.setItem(AUTH_KEY, 'true');
+      }
+
       return {
         isAuthenticated: result.success,
-        error: result.success ? undefined : 'Failed to authenticate',
+        error: result.success ? undefined : result.error,
       };
     } catch (error) {
       return {
         isAuthenticated: false,
-        error: 'Authentication failed',
+        error,
       };
     }
-  }
-}
+  },
 
-export const authService = new AuthenticationService();
+  async logout() {
+    await AsyncStorage.removeItem(AUTH_KEY);
+  },
+
+  async checkAuthStatus(): Promise<boolean> {
+    const status = await AsyncStorage.getItem(AUTH_KEY);
+    return status === 'true';
+  },
+};

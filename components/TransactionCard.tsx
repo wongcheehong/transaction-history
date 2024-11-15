@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
+import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Transaction } from '@/types/types';
 import { transactionService } from '@/services/transaction-service';
+import { useStyles } from '@/hooks/useStyles';
+import { Theme } from '@/hooks/useAppTheme';
 
 interface TransactionCardProps {
   transaction: Transaction;
@@ -15,31 +16,35 @@ export function TransactionCard({
   isAmountVisible,
   onPress
 }: TransactionCardProps) {
+  const styles = useStyles(createStyles);
+
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-white p-4 mb-2 border-b border-gray-200"
+      style={styles.container}
     >
-      <View className="flex flex-row justify-between items-center">
-        <View className="flex-1">
-          <Text className="text-gray-800 font-semibold">
+      <View style={styles.contentContainer}>
+        <View style={styles.leftContent}>
+          <Text style={styles.description}>
             {transaction.description}
           </Text>
-          <Text className="text-gray-500 text-sm mt-1">
+          <Text style={styles.date}>
             {transactionService.formatDate(transaction.date)}
           </Text>
         </View>
 
-        <View className="items-end">
+        <View style={styles.rightContent}>
           <Text
-            className={`font-semibold w-20 ${transaction.type === 'debit' ? 'text-red-500' : 'text-green-500'
-              }`}
+            style={[
+              styles.amount,
+              transaction.type === 'debit' ? styles.debitAmount : styles.creditAmount
+            ]}
           >
             {isAmountVisible
               ? transactionService.formatAmount(transaction.amount, transaction.type)
               : '•••••'}
           </Text>
-          <Text className="text-gray-500 text-xs text-right">
+          <Text style={styles.category}>
             {transaction.category}
           </Text>
         </View>
@@ -47,3 +52,50 @@ export function TransactionCard({
     </TouchableOpacity>
   );
 }
+
+const createStyles = (theme: Theme) => StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.gray[200]
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  leftContent: {
+    flex: 1
+  },
+  rightContent: {
+    alignItems: 'flex-end'
+  },
+  description: {
+    color: theme.colors.gray[800],
+    ...theme.typography.body1,
+    fontWeight: '600'
+  },
+  date: {
+    color: theme.colors.gray[500],
+    ...theme.typography.body2,
+    marginTop: theme.spacing.xs
+  },
+  amount: {
+    ...theme.typography.body1,
+    fontWeight: '600',
+    width: 80
+  },
+  debitAmount: {
+    color: theme.colors.error
+  },
+  creditAmount: {
+    color: theme.colors.success
+  },
+  category: {
+    color: theme.colors.gray[500],
+    ...theme.typography.caption,
+    textAlign: 'right'
+  }
+});

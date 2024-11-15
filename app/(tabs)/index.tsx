@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text } from '@/components/ui/Text';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowRight, DollarSign, PieChart, ArrowUpRight, ArrowDownRight } from 'lucide-react-native';
 import { useFetchTransactions } from '@/hooks/useFetchTransactions';
 import { TransactionCard } from '@/components/TransactionCard';
+import { useStyles } from '@/hooks/useStyles';
+import { Theme } from '@/hooks/useAppTheme';
 
 export default function HomeScreen() {
     const router = useRouter();
     const { transactions, isLoading } = useFetchTransactions();
+    const styles = useStyles(createStyles);
 
     // Calculate total balance and recent activity
     const recentTransactions = transactions.slice(0, 3);
@@ -29,44 +31,44 @@ export default function HomeScreen() {
     };
 
     return (
-        <ScrollView className="flex-1 bg-gray-50">
+        <ScrollView style={styles.container}>
             {/* Balance Card */}
-            <View className="m-4 p-6 bg-blue-500 rounded-xl">
-                <Text className="text-white/80 mb-2">Total Balance</Text>
-                <Text className="text-white text-3xl font-semibold">
+            <View style={styles.balanceCard}>
+                <Text style={styles.balanceLabel}>Total Balance</Text>
+                <Text style={styles.balanceAmount}>
                     ${totalBalance.toFixed(2)}
                 </Text>
             </View>
 
             {/* Quick Stats */}
-            <View className="flex-row mx-4 space-x-4">
-                <View className="flex-1 p-4 bg-white rounded-xl">
-                    <View className="flex-row items-center space-x-2">
-                        <ArrowUpRight size={20} color="#22c55e" />
-                        <Text className="text-gray-600">Income</Text>
+            <View style={styles.statsContainer}>
+                <View style={styles.statCard}>
+                    <View style={styles.statHeader}>
+                        <ArrowUpRight size={20} color={styles.incomeIcon.color} />
+                        <Text style={styles.statLabel}>Income</Text>
                     </View>
-                    <Text className="text-lg font-semibold mt-2">${monthlyIncome.toFixed(2)}</Text>
+                    <Text style={styles.statAmount}>${monthlyIncome.toFixed(2)}</Text>
                 </View>
 
-                <View className="flex-1 p-4 bg-white rounded-xl">
-                    <View className="flex-row items-center space-x-2">
-                        <ArrowDownRight size={20} color="#ef4444" />
-                        <Text className="text-gray-600">Expenses</Text>
+                <View style={styles.statCard}>
+                    <View style={styles.statHeader}>
+                        <ArrowDownRight size={20} color={styles.expenseIcon.color} />
+                        <Text style={styles.statLabel}>Expenses</Text>
                     </View>
-                    <Text className="text-lg font-semibold mt-2">${monthlyExpenses.toFixed(2)}</Text>
+                    <Text style={styles.statAmount}>${monthlyExpenses.toFixed(2)}</Text>
                 </View>
             </View>
 
             {/* Recent Transactions */}
-            <View className="mt-6">
-                <View className="flex-row justify-between items-center mx-4 mb-2">
-                    <Text className="text-lg font-semibold">Recent Transactions</Text>
+            <View style={styles.transactionsSection}>
+                <View style={styles.sectionHeader}>
+                    <Text style={styles.sectionTitle}>Recent Transactions</Text>
                     <TouchableOpacity
                         onPress={handleViewAllTransactions}
-                        className="flex-row items-center"
+                        style={styles.viewAllButton}
                     >
-                        <Text className="text-blue-500 mr-1">View All</Text>
-                        <ArrowRight size={16} color="#3b82f6" />
+                        <Text style={styles.viewAllText}>View All</Text>
+                        <ArrowRight size={16} color={styles.viewAllIcon.color} />
                     </TouchableOpacity>
                 </View>
 
@@ -81,24 +83,130 @@ export default function HomeScreen() {
             </View>
 
             {/* Quick Actions */}
-            <View className="mt-6 mb-8 mx-4">
-                <Text className="text-lg font-semibold mb-4">Quick Actions</Text>
-                <View className="flex-row space-x-4">
-                    <TouchableOpacity className="flex-1 items-center p-4 bg-white rounded-xl">
-                        <View className="w-12 h-12 bg-blue-100 rounded-full items-center justify-center mb-2">
-                            <DollarSign size={24} color="#3b82f6" />
+            <View style={styles.actionsSection}>
+                <Text style={styles.sectionTitle}>Quick Actions</Text>
+                <View style={styles.actionsContainer}>
+                    <TouchableOpacity style={styles.actionButton}>
+                        <View style={styles.actionIconContainer}>
+                            <DollarSign size={24} color={styles.actionIcon.color} />
                         </View>
-                        <Text className="text-gray-800">Send Money</Text>
+                        <Text style={styles.actionText}>Send Money</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity className="flex-1 items-center p-4 bg-white rounded-xl">
-                        <View className="w-12 h-12 bg-blue-100 rounded-full items-center justify-center mb-2">
-                            <PieChart size={24} color="#3b82f6" />
+                    <TouchableOpacity style={styles.actionButton}>
+                        <View style={styles.actionIconContainer}>
+                            <PieChart size={24} color={styles.actionIcon.color} />
                         </View>
-                        <Text className="text-gray-800">Analytics</Text>
+                        <Text style={styles.actionText}>Analytics</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </ScrollView>
     );
 }
+
+const createStyles = (theme: Theme) => StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: theme.colors.gray[50],
+    },
+    balanceCard: {
+        margin: theme.spacing.md,
+        padding: theme.spacing.xl,
+        backgroundColor: theme.colors.primary.main,
+        borderRadius: theme.radius.xl,
+    },
+    balanceLabel: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        marginBottom: theme.spacing.sm,
+    },
+    balanceAmount: {
+        color: theme.colors.background,
+        ...theme.typography.h1,
+    },
+    statsContainer: {
+        flexDirection: 'row',
+        marginHorizontal: theme.spacing.md,
+        gap: theme.spacing.md,
+    },
+    statCard: {
+        flex: 1,
+        padding: theme.spacing.md,
+        backgroundColor: theme.colors.background,
+        borderRadius: theme.radius.xl,
+    },
+    statHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: theme.spacing.sm,
+    },
+    statLabel: {
+        color: theme.colors.gray[600],
+    },
+    statAmount: {
+        ...theme.typography.h3,
+        marginTop: theme.spacing.sm,
+    },
+    incomeIcon: {
+        color: theme.colors.success,
+    },
+    expenseIcon: {
+        color: theme.colors.error,
+    },
+    transactionsSection: {
+        marginTop: theme.spacing.xl,
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal: theme.spacing.md,
+        marginBottom: theme.spacing.sm,
+    },
+    sectionTitle: {
+        ...theme.typography.h3,
+    },
+    viewAllButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    viewAllText: {
+        color: theme.colors.primary.main,
+        marginRight: theme.spacing.xs,
+    },
+    viewAllIcon: {
+        color: theme.colors.primary.main,
+    },
+    actionsSection: {
+        marginTop: theme.spacing.xl,
+        marginBottom: theme.spacing.xxl,
+        marginHorizontal: theme.spacing.md,
+    },
+    actionsContainer: {
+        flexDirection: 'row',
+        gap: theme.spacing.md,
+        marginTop: theme.spacing.md,
+    },
+    actionButton: {
+        flex: 1,
+        alignItems: 'center',
+        padding: theme.spacing.md,
+        backgroundColor: theme.colors.background,
+        borderRadius: theme.radius.xl,
+    },
+    actionIconContainer: {
+        width: 48,
+        height: 48,
+        backgroundColor: theme.colors.primary.light,
+        borderRadius: theme.radius.round,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: theme.spacing.sm,
+    },
+    actionIcon: {
+        color: theme.colors.primary.main,
+    },
+    actionText: {
+        color: theme.colors.gray[800],
+    },
+});

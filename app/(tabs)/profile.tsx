@@ -1,52 +1,15 @@
+// app/(app)/profile.tsx
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Switch, Alert } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { LogOut, Shield, Bell, Lock, ChevronRight } from 'lucide-react-native';
+import { View, TouchableOpacity, Alert, Text } from 'react-native';
+import { LogOut, Shield, Bell, Lock } from 'lucide-react-native';
+import { useStyles } from '@/hooks/useStyles';
 import { authService } from '@/services/auth-service';
-
-interface SettingItemProps {
-    icon: React.ReactNode;
-    title: string;
-    onPress?: () => void;
-    hasToggle?: boolean;
-    isToggled?: boolean;
-    onToggle?: (value: boolean) => void;
-}
-
-function SettingItem({
-    icon,
-    title,
-    onPress,
-    hasToggle,
-    isToggled,
-    onToggle
-}: SettingItemProps) {
-    return (
-        <TouchableOpacity
-            onPress={onPress}
-            className="flex-row items-center p-4 bg-white border-b border-gray-100"
-        >
-            <View className="w-8 h-8 justify-center items-center mr-3">
-                {icon}
-            </View>
-            <Text className="flex-1 text-gray-800">{title}</Text>
-            {hasToggle ? (
-                <Switch
-                    value={isToggled}
-                    onValueChange={onToggle}
-                    trackColor={{ false: '#cbd5e1', true: '#93c5fd' }}
-                    thumbColor={isToggled ? '#3b82f6' : '#f4f4f5'}
-                />
-            ) : (
-                <ChevronRight size={20} color="#6b7280" />
-            )}
-        </TouchableOpacity>
-    );
-}
 
 export default function ProfileScreen() {
     const [isBiometricEnabled, setIsBiometricEnabled] = useState(true);
     const [isPushNotificationsEnabled, setIsPushNotificationsEnabled] = useState(true);
+    const styles = useStyles(createProfileScreenStyles);
+    const theme = useAppTheme();
 
     const handleBiometricToggle = async (value: boolean) => {
         if (value) {
@@ -98,28 +61,28 @@ export default function ProfileScreen() {
     };
 
     return (
-        <View className="flex-1 bg-gray-50">
+        <View style={styles.container}>
             {/* Profile Header */}
-            <View className="bg-white p-6 items-center border-b border-gray-200">
-                <View className="w-20 h-20 rounded-full bg-blue-100 items-center justify-center mb-3">
-                    <Text className="text-2xl text-blue-500 font-semibold">JD</Text>
+            <View style={styles.header}>
+                <View style={styles.avatarContainer}>
+                    <Text style={styles.avatarText}>JD</Text>
                 </View>
-                <Text className="text-xl font-semibold text-gray-800">John Doe</Text>
-                <Text className="text-gray-500 mt-1">john.doe@example.com</Text>
+                <Text style={styles.userName}>John Doe</Text>
+                <Text style={styles.userEmail}>john.doe@example.com</Text>
             </View>
 
             {/* Settings Section */}
-            <View className="mt-6">
-                <Text className="px-4 pb-2 text-sm text-gray-500 uppercase">Settings</Text>
+            <View style={styles.settingsContainer}>
+                <Text style={styles.sectionTitle}>Settings</Text>
 
                 <SettingItem
-                    icon={<Shield size={24} color="#3b82f6" />}
+                    icon={<Shield size={24} color={theme.colors.primary.main} />}
                     title="Security Settings"
                     onPress={handleSecuritySettings}
                 />
 
                 <SettingItem
-                    icon={<Lock size={24} color="#3b82f6" />}
+                    icon={<Lock size={24} color={theme.colors.primary.main} />}
                     title="Biometric Authentication"
                     hasToggle
                     isToggled={isBiometricEnabled}
@@ -127,7 +90,7 @@ export default function ProfileScreen() {
                 />
 
                 <SettingItem
-                    icon={<Bell size={24} color="#3b82f6" />}
+                    icon={<Bell size={24} color={theme.colors.primary.main} />}
                     title="Push Notifications"
                     hasToggle
                     isToggled={isPushNotificationsEnabled}
@@ -138,11 +101,79 @@ export default function ProfileScreen() {
             {/* Logout Button */}
             <TouchableOpacity
                 onPress={handleLogout}
-                className="mt-6 mx-4 p-4 bg-red-50 rounded-lg flex-row items-center justify-center"
+                style={styles.logoutButton}
             >
-                <LogOut size={20} color="#ef4444" className="mr-2" />
-                <Text className="text-red-500 font-medium">Logout</Text>
+                <LogOut size={20} color={theme.colors.error} />
+                <Text style={styles.logoutText}>Logout</Text>
             </TouchableOpacity>
         </View>
     );
 }
+
+// app/styles/profile-screen.ts
+import { Theme, useAppTheme } from '@/hooks/useAppTheme';
+import { StyleSheet } from 'react-native';
+import { SettingItem } from '@/components/Profile/SettingItem';
+
+export const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: theme.colors.gray[50]
+    },
+    header: {
+        backgroundColor: theme.colors.background,
+        padding: theme.spacing.xl,
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colors.gray[200]
+    },
+    avatarContainer: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        backgroundColor: theme.colors.primary.light,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: theme.spacing.sm
+    },
+    avatarText: {
+        fontSize: theme.typography.h2.fontSize,
+        color: theme.colors.primary.main,
+        fontWeight: theme.typography.h2.fontWeight
+    },
+    userName: {
+        ...theme.typography.h3,
+        color: theme.colors.gray[800]
+    },
+    userEmail: {
+        ...theme.typography.body2,
+        color: theme.colors.gray[500],
+        marginTop: theme.spacing.xs
+    },
+    sectionTitle: {
+        ...theme.typography.caption,
+        color: theme.colors.gray[500],
+        textTransform: 'uppercase',
+        paddingHorizontal: theme.spacing.md,
+        paddingBottom: theme.spacing.sm
+    },
+    settingsContainer: {
+        marginTop: theme.spacing.xl
+    },
+    logoutButton: {
+        marginTop: theme.spacing.xl,
+        marginHorizontal: theme.spacing.md,
+        padding: theme.spacing.md,
+        backgroundColor: theme.colors.error + '10',
+        borderRadius: theme.radius.lg,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    logoutText: {
+        ...theme.typography.body1,
+        color: theme.colors.error,
+        fontWeight: '500',
+        marginLeft: theme.spacing.sm
+    }
+});

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Fingerprint, ScanFace } from 'lucide-react-native';
 import { useAuthContext } from '@/context/AuthContext';

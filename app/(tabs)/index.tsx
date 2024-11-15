@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ArrowRight, DollarSign, PieChart, ArrowUpRight, ArrowDownRight } from 'lucide-react-native';
+import { ArrowRight, ArrowUpRight, ArrowDownRight } from 'lucide-react-native';
 import { useFetchTransactions } from '@/hooks/useFetchTransactions';
 import { TransactionCard } from '@/components/TransactionCard';
 import { useStyles } from '@/hooks/useStyles';

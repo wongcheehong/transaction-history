@@ -11,13 +11,3 @@ export interface Transaction {
   reference: string;
   status: 'completed' | 'pending' | 'failed';
 }
-
-export interface TransactionError {
-  code: string;
-  message: string;
-}
-
-export interface AuthenticationState {
-  isAuthenticated: boolean;
-  error?: string;
-}

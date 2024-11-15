@@ -26,11 +26,11 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         alignItems: 'center',
     },
     label: {
-        color: theme.colors.gray[500]
+        color: theme.colors.neutral[500]
     },
     value: {
         ...theme.typography.body1,
-        color: theme.colors.gray[800],
+        color: theme.colors.neutral[800],
         fontWeight: '500'
     }
 });

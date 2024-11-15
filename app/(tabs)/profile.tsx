@@ -118,14 +118,14 @@ import { SettingItem } from '@/components/Profile/SettingItem';
 export const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.gray[50]
+        backgroundColor: theme.colors.neutral[50]
     },
     header: {
         backgroundColor: theme.colors.background,
         padding: theme.spacing.xl,
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: theme.colors.gray[200]
+        borderBottomColor: theme.colors.neutral[200]
     },
     avatarContainer: {
         width: 80,
@@ -143,16 +143,16 @@ export const createProfileScreenStyles = (theme: Theme) => StyleSheet.create({
     },
     userName: {
         ...theme.typography.h3,
-        color: theme.colors.gray[800]
+        color: theme.colors.neutral[800]
     },
     userEmail: {
         ...theme.typography.body2,
-        color: theme.colors.gray[500],
+        color: theme.colors.neutral[500],
         marginTop: theme.spacing.xs
     },
     sectionTitle: {
         ...theme.typography.caption,
-        color: theme.colors.gray[500],
+        color: theme.colors.neutral[500],
         textTransform: 'uppercase',
         paddingHorizontal: theme.spacing.md,
         paddingBottom: theme.spacing.sm

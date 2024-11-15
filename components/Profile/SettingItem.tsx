@@ -28,7 +28,7 @@ export function SettingItem({
             padding: theme.spacing.md,
             backgroundColor: theme.colors.background,
             borderBottomWidth: 1,
-            borderBottomColor: theme.colors.gray[100]
+            borderBottomColor: theme.colors.neutral[100]
         },
         iconContainer: {
             width: 32,
@@ -39,15 +39,15 @@ export function SettingItem({
         },
         title: {
             flex: 1,
-            color: theme.colors.gray[800],
+            color: theme.colors.neutral[800],
             ...theme.typography.body1
         },
         switch: {
             trackColor: {
-                false: theme.colors.gray[200],
+                false: theme.colors.neutral[200],
                 true: theme.colors.primary.light
             },
-            thumbColor: isToggled ? theme.colors.primary.main : theme.colors.gray[100]
+            thumbColor: isToggled ? theme.colors.primary.main : theme.colors.neutral[100]
         }
     }));
 

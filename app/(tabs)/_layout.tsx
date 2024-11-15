@@ -1,7 +1,6 @@
 import { AmountToggle } from '@/components/AmountToggle';
 import { Tabs } from 'expo-router';
 import { Home, User } from 'lucide-react-native';
-import { View } from 'react-native';
 
 export default function TabLayout() {
     return (

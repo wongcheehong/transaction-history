@@ -2,7 +2,6 @@ import { Href, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useRouter, useSegments } from 'expo-router';
 import { AuthProvider, useAuthContext } from '@/context/AuthContext';
-import { AmountToggle } from '@/components/AmountToggle';
 
 function RootLayoutNav() {
     const { isLoggedIn } = useAuthContext();

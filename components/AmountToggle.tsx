@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Eye, EyeOff } from 'lucide-react-native';
 import { useHideAmountStore } from '@/hooks/stores/useHideAmountStore';
 import { useAppTheme } from '@/hooks/useAppTheme';

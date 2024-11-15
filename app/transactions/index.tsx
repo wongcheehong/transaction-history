@@ -74,7 +74,7 @@ export default function TransactionsScreen() {
 const createStyles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.gray[50],
+    backgroundColor: theme.colors.neutral[50],
   },
   header: {
     padding: theme.spacing.md,

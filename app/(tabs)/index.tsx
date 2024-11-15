@@ -109,7 +109,7 @@ export default function HomeScreen() {
 const createStyles = (theme: Theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.gray[50],
+        backgroundColor: theme.colors.neutral[50],
     },
     balanceCard: {
         margin: theme.spacing.md,
@@ -142,7 +142,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         gap: theme.spacing.sm,
     },
     statLabel: {
-        color: theme.colors.gray[600],
+        color: theme.colors.neutral[600],
     },
     statAmount: {
         ...theme.typography.h4,
@@ -208,6 +208,6 @@ const createStyles = (theme: Theme) => StyleSheet.create({
         color: theme.colors.primary.main,
     },
     actionText: {
-        color: theme.colors.gray[800],
+        color: theme.colors.neutral[800],
     },
 });

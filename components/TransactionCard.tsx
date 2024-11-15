@@ -59,7 +59,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
     padding: theme.spacing.md,
     marginBottom: theme.spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.gray[200]
+    borderBottomColor: theme.colors.neutral[200]
   },
   contentContainer: {
     flexDirection: 'row',
@@ -75,12 +75,12 @@ const createStyles = (theme: Theme) => StyleSheet.create({
     justifyContent: "flex-end",
   },
   description: {
-    color: theme.colors.gray[800],
+    color: theme.colors.neutral[800],
     ...theme.typography.body1,
     fontWeight: '600'
   },
   date: {
-    color: theme.colors.gray[500],
+    color: theme.colors.neutral[500],
     ...theme.typography.body2,
     marginTop: theme.spacing.xs
   },
@@ -96,7 +96,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
     color: theme.colors.success
   },
   category: {
-    color: theme.colors.gray[500],
+    color: theme.colors.neutral[500],
     ...theme.typography.caption,
     textAlign: 'right'
   }

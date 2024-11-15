@@ -93,7 +93,7 @@ const createStyles = (theme: Theme) => StyleSheet.create({
   },
   title: {
     ...theme.typography.h2,
-    color: theme.colors.gray[800],
+    color: theme.colors.neutral[800],
   },
   amount: {
     ...theme.typography.h2,

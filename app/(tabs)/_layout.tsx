@@ -1,16 +1,18 @@
 import { AmountToggle } from '@/components/AmountToggle';
+import { useAppTheme } from '@/hooks/useAppTheme';
 import { Tabs } from 'expo-router';
 import { Home, User } from 'lucide-react-native';
 
 export default function TabLayout() {
+    const theme = useAppTheme();
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#3b82f6',
-                tabBarInactiveTintColor: '#6b7280',
+                tabBarActiveTintColor: theme.colors.primary.main,
+                tabBarInactiveTintColor: theme.colors.neutral[500],
                 tabBarStyle: {
                     borderTopWidth: 1,
-                    borderTopColor: '#e5e7eb',
+                    borderTopColor: theme.colors.neutral[200],
                 },
             }}
         >

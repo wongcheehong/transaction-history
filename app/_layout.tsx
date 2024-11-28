@@ -12,7 +12,7 @@ function RootLayoutNav() {
         const inAuthGroup = ['(tabs)', 'transactions'].findIndex((s) => segments[0] === s) !== -1;
 
         if (!isLoggedIn && inAuthGroup) {
-            router.replace('/login' as Href);
+            router.replace('/login');
         } else if (isLoggedIn && !inAuthGroup) {
             router.replace('/(tabs)');
         }

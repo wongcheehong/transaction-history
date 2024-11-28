@@ -10,7 +10,7 @@ import { formatAmount, formatDate } from '@/lib/formatter';
 import { useHideAmountStore } from '@/hooks/stores/useHideAmountStore';
 
 export default function TransactionDetailScreen() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
   const { isAmountVisible } = useHideAmountStore();
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ export default function TransactionDetailScreen() {
   useEffect(() => {
     const loadTransaction = async () => {
       try {
-        const data = await transactionService.fetchTransactionById(id as string);
+        const data = await transactionService.fetchTransactionById(id);
         if (!data) {
           setError('Transaction not found');
           return;
